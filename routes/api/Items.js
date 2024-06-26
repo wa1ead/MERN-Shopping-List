@@ -20,4 +20,11 @@ router.post("/add-item", (req, res) => {
   newItem.save().then((item) => res.json(item));
 });
 
+//DELETE ITEM
+router.delete("/delete-item/:id", (req, res) => {
+  Item.findById(req.params.id)
+    .then((item) => item.remove().then(() => res.json({ success: true })))
+    .catch((error) => res.status(404).json({ success: false }));
+});
+
 module.exports = router;
