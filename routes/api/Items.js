@@ -2,6 +2,13 @@ const express = require("express");
 const router = express.Router;
 
 //ITEM MODEL
-const item = require("../../models/Item");
+const Item = require("../../models/Item");
 
-export default router;
+//GET ALL ITEMS
+router.get("/", (req, res) => {
+  Item.find()
+    .sort({ date: -1 })
+    .then((items) => res.json(items));
+});
+
+module.exports = router;
