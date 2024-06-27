@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Collapse,
   Navbar,
@@ -9,7 +9,7 @@ import {
   NavLink,
 } from "reactstrap";
 
-function AppNavbar(props) {
+function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
