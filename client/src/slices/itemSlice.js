@@ -17,8 +17,15 @@ const itemSlice = createSlice({
     getItems: (state) => {
       return state;
     },
+    addItem: (state, action) => {
+      return {};
+    },
+    deleteItem: (state, action) => {
+      const itemId = action.payload;
+      state.list = state.list.filter((item) => item.id !== itemId);
+    },
   },
 });
 
-export const { getItems } = itemSlice.actions;
+export const { getItems, deleteItem } = itemSlice.actions;
 export default itemSlice.reducer;
