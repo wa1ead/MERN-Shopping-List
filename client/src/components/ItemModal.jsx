@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Modal,
@@ -9,9 +10,11 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import { v4 as uuid } from "uuid";
 import { addItem } from "../slices/itemSlice";
 
 function ItemModal() {
+  const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [name, setName] = useState("");
 
@@ -21,6 +24,20 @@ function ItemModal() {
 
   const onChange = (e) => {
     setName({ [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault;
+    const newItem = {
+      id: uuid(),
+      name: name,
+    };
+
+    //ADD ITEM ACTION
+    dispatch(addItem(newItem));
+
+    //CLOSE MODAL
+    setToggle();
   };
 
   return (
@@ -41,6 +58,9 @@ function ItemModal() {
                 placeholder="Add Shopping Item"
                 onChange={onChange}
               />
+              <Button color="dark" style={{ marginTop: "2rem" }} block>
+                Save
+              </Button>
             </FormGroup>
           </Form>
         </ModalBody>

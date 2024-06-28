@@ -18,9 +18,8 @@ const itemSlice = createSlice({
       return state;
     },
     addItem: (state, action) => {
-      const name = action.payload;
-      const id = uuid();
-      state = [...state.list, { id: id, name: name }];
+      const item = action.payload;
+      state = [{ item }, ...state.list];
     },
     deleteItem: (state, action) => {
       const itemId = action.payload;
