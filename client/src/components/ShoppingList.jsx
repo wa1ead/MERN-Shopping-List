@@ -1,27 +1,18 @@
-import { useState } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { v4 as uuid } from "uuid";
+import { useSelector } from "react-redux";
 
 function ShoppingList() {
-  const [items, setItems] = useState([
-    { id: uuid(), name: "Eggs" },
-    { id: uuid(), name: "Milk" },
-    { id: uuid(), name: "Steak" },
-    { id: uuid(), name: "Water" },
-  ]);
+  const items = useSelector((state) => state.items.list);
+
+  // Ensure items is defined and is an array
+  if (!items || !Array.isArray(items)) {
+    return <div>No items found</div>;
+  }
+
   return (
     <Container>
-      <Button
-        color="dark"
-        style={{ marginBottom: "2rem" }}
-        onClick={() => {
-          const name = prompt("Enter Item");
-          if (name) {
-            setItems([...items, { id: uuid(), name }]);
-          }
-        }}
-      >
+      <Button color="dark" style={{ marginBottom: "2rem" }}>
         Add Item
       </Button>
 
@@ -30,14 +21,7 @@ function ShoppingList() {
           {items.map(({ id, name }) => (
             <CSSTransition key={id} timeout={500} classNames="fade">
               <ListGroupItem>
-                <Button
-                  className="remove-btn"
-                  color="danger"
-                  size="sm"
-                  onClick={() =>
-                    setItems(items.filter((item) => item.id !== id))
-                  }
-                >
+                <Button className="remove-btn" color="danger" size="sm">
                   &times;
                 </Button>
                 {name}

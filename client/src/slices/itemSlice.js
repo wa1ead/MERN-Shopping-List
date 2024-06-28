@@ -11,13 +11,14 @@ const initialState = {
 };
 
 const itemSlice = createSlice({
-  name: "item",
+  name: "items",
   initialState,
   reducers: {
     getItems: (state) => {
-      return state.list;
+      return state;
     },
   },
 });
 
+export const { getItems } = itemSlice.actions;
 export default itemSlice.reducer;
