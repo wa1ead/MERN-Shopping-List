@@ -11,7 +11,7 @@ import {
   Input,
 } from "reactstrap";
 import { v4 as uuid } from "uuid";
-import { addItem } from "../slices/itemSlice";
+import { addItem } from "../features/item/itemSlice";
 
 function ItemModal() {
   const dispatch = useDispatch();
