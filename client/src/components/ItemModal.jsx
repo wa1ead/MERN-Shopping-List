@@ -23,14 +23,14 @@ function ItemModal() {
   };
 
   const onChange = (e) => {
-    setName({ [e.target.name]: e.target.value });
+    setName(e.target.value);
   };
 
   const onSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     const newItem = {
       id: uuid(),
-      name: name,
+      name,
     };
 
     //ADD ITEM ACTION
@@ -53,7 +53,7 @@ function ItemModal() {
               <Label for="item">Item</Label>
               <Input
                 type="text"
-                name={name}
+                name="name"
                 id="item"
                 placeholder="Add Shopping Item"
                 onChange={onChange}

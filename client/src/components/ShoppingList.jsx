@@ -1,7 +1,7 @@
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItem } from "../slices/itemSlice";
+import { deleteItem } from "../features/item/itemSlice";
 
 function ShoppingList() {
   const items = useSelector((state) => state.items.list);
