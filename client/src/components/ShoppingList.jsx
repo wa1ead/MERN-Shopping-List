@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteItem } from "../features/item/itemSlice";
 
 function ShoppingList() {
-  const items = useSelector((state) => state.items.list);
+  const items = useSelector((state) => state.items.items);
   const dispatch = useDispatch();
 
   // Ensure items is defined and is an array
