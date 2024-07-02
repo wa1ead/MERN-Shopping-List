@@ -12,15 +12,15 @@ const itemSlice = createSlice({
   reducers: {
     getItems: (state, action) => {
       state.items = action.payload;
-      state.laoding = false;
+      state.loading = false;
     },
     addItem: (state, action) => {
       const item = action.payload;
-      state.items = [{ id: item.id, name: item.name }, ...state.list];
+      state.items.unshift({ id: item.id, name: item.name });
     },
     deleteItem: (state, action) => {
       const itemId = action.payload;
-      state.items = state.list.filter((item) => item.id !== itemId);
+      state.items = state.items.filter((item) => item.id !== itemId);
     },
     itemsLoading: (state) => {
       state.loading = true;
@@ -28,10 +28,15 @@ const itemSlice = createSlice({
   },
 });
 
-export const fetchItems = async (dispatch) => {
+export const fetchItems = () => async (dispatch) => {
   dispatch(itemsLoading());
-  const response = await axios.get("/api/items");
-  dispatch(getItems(response.data));
+  try {
+    const response = await axios.get("/api/items");
+    dispatch(getItems(response.data));
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const { getItems, addItem, deleteItem, itemsLoading } =

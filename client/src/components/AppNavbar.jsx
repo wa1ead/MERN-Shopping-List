@@ -23,7 +23,9 @@ function AppNavbar() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="https://github.com/wa1ead">GitHub</NavLink>
+              <NavLink href="https://github.com/wa1ead" target="_blank">
+                GitHub
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
