@@ -10,7 +10,6 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { v4 as uuid } from "uuid";
 import { addItem } from "../features/item/itemSlice";
 
 function ItemModal() {
@@ -29,7 +28,6 @@ function ItemModal() {
   const onSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      id: uuid(),
       name,
     };
 
