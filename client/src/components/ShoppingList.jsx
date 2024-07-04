@@ -1,12 +1,17 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteItem, getItems } from "../features/item/itemSlice";
+import { deleteItem, fetchItems } from "../features/item/itemSlice";
 
 function ShoppingList() {
   const items = useSelector((state) => state.items.items);
   const dispatch = useDispatch();
-  getItems();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
+  console.log(items);
 
   // Ensure items is defined and is an array
   if (!items || !Array.isArray(items)) {

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -6,39 +6,33 @@ const initialState = {
   loading: false,
 };
 
+export const fetchItems = createAsyncThunk("items/fetchItems", () => {
+  return axios.get("/api/items").then((response) => response.data);
+});
+
 const itemSlice = createSlice({
   name: "items",
   initialState,
   reducers: {
-    getItems: (state, action) => {
-      state.items = action.payload;
-      state.loading = false;
-    },
     addItem: (state, action) => {
       const item = action.payload;
-      state.items.unshift({ id: item.id, name: item.name });
+      state.items = [{ id: item.id, name: item.name }, { ...state.items }];
     },
     deleteItem: (state, action) => {
       const itemId = action.payload;
       state.items = state.items.filter((item) => item.id !== itemId);
     },
-    itemsLoading: (state) => {
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchItems.pending, (state) => {
       state.loading = true;
-    },
+    });
+    builder.addCase(fetchItems.fulfilled, (state, action) => {
+      state.loading = false;
+      state.items = action.payload;
+    });
   },
 });
 
-export const fetchItems = () => async (dispatch) => {
-  dispatch(itemsLoading());
-  try {
-    const response = await axios.get("/api/items");
-    dispatch(getItems(response.data));
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const { getItems, addItem, deleteItem, itemsLoading } =
-  itemSlice.actions;
+export const { addItem, deleteItem } = itemSlice.actions;
 export default itemSlice.reducer;
