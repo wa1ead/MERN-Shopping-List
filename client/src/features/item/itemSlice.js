@@ -12,12 +12,11 @@ export const fetchItems = createAsyncThunk("items/fetchItems", () => {
     .then((response) => response.data);
 });
 
-export const addItem = createAsyncThunk(
-  "http://localhost:5000/items/addItem",
-  () => {
-    return axios.post("/api/items").then((response) => response.data);
-  }
-);
+export const addItem = createAsyncThunk("items/addItem", (item) => {
+  return axios
+    .post("http://localhost:5000/api/items", item)
+    .then((response) => response.data);
+});
 
 const itemSlice = createSlice({
   name: "items",
@@ -41,7 +40,7 @@ const itemSlice = createSlice({
     //ADD ITEM
     builder.addCase(addItem.fulfilled, (state, action) => {
       const item = action.payload;
-      state.items = [{ id: item.id, name: item.name }, { ...state.items }];
+      state.items.push(item);
     });
   },
 });

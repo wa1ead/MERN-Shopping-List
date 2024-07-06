@@ -10,7 +10,7 @@ function ShoppingList() {
 
   useEffect(() => {
     dispatch(fetchItems());
-  }, []);
+  }, [dispatch]);
   console.log(items);
 
   // Ensure items is defined and is an array

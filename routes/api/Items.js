@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 });
 
 //CREATE ITEM
-router.post("/add-item", (req, res) => {
+router.post("/", (req, res) => {
   const newItem = new Item({
     name: req.body.name,
   });
