@@ -25,7 +25,7 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
   Item.findById(id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
-    .catch((err) => console.log(err.response.data.message));
+    .catch((err) => console.log((err) => err.json({ success: false })));
 });
 
 module.exports = router;

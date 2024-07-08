@@ -19,7 +19,16 @@ export const addItem = createAsyncThunk("items/addItem", async (item) => {
 });
 
 export const deleteItem = createAsyncThunk("items/deleteItem", async (id) => {
-  await axios.delete(`http://localhost:5000/api/items/${id}`);
+  await axios
+    .delete(`http://localhost:5000/api/items/${id}`, {
+      params: { id: id },
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error.response);
+    });
   return id;
 });
 
