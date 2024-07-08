@@ -21,10 +21,11 @@ router.post("/", (req, res) => {
 });
 
 //DELETE ITEM
-router.delete("/delete-item/:id", (req, res) => {
-  Item.findById(req.params.id)
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  Item.findById(id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
-    .catch((error) => res.status(404).json({ success: false }));
+    .catch((err) => console.log(err.response.data.message));
 });
 
 module.exports = router;
