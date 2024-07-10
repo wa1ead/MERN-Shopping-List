@@ -18,11 +18,9 @@ export const addItem = createAsyncThunk("items/addItem", async (item) => {
     .then((response) => response.data);
 });
 
-export const deleteItem = createAsyncThunk("items/deleteItem", async (id) => {
-  await axios
-    .delete(`http://localhost:5000/api/items/${id}`, {
-      params: { id: id },
-    })
+export const deleteItem = createAsyncThunk("items/deleteItem", (id) => {
+  axios
+    .delete(`http://localhost:5000/api/items/${id}`)
     .then((response) => {
       console.log(response.data);
     })
