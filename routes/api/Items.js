@@ -22,10 +22,10 @@ router.post("/", (req, res) => {
 
 //DELETE ITEM
 router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  Item.findById(id)
+  const itemId = req.params.id;
+  Item.findById(itemId)
     .then((item) => item.remove().then(() => res.json({ success: true })))
-    .catch((err) => console.log((err) => err.json({ success: false })));
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 module.exports = router;
