@@ -1,9 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const path = require("path");
-const Items = require("./routes/api/Items");
 
 const app = express();
 
@@ -11,19 +9,20 @@ const app = express();
 app.use(cors());
 
 //BODY-PARSER MIDDLEWARE
-app.use(bodyParser.json());
+app.use(express.json());
 
 //DB CONFIG
 const db = require("./config/keys").mongoURI;
 
 //CONNECT TO MONGODB
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDb connected..."))
   .catch((err) => console.log(err));
 
 //GENERATE ROUTES
-app.use("/api/items", Items);
+app.use("/api/items", require("./routes/api/Items"));
+app.use("/api/users", require("./routes/api/Users"));
 
 //SERVE STATIC ASSETS
 if (process.env.NODE_ENV === "production") {
