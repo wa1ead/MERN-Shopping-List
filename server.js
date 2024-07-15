@@ -24,6 +24,7 @@ mongoose
 //GENERATE ROUTES
 app.use("/api/items", require("./routes/api/Items"));
 app.use("/api/users", require("./routes/api/Users"));
+app.use("/api/auth", require("./routes/api/auth"));
 
 //SERVE STATIC ASSETS
 if (process.env.NODE_ENV === "production") {
