@@ -2,9 +2,10 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
 const router = express.Router();
 
-//ITEM MODEL
+//USER MODEL
 const User = require("../../models/User");
 
 //USER AUTHENTICATION
@@ -42,6 +43,11 @@ router.post("/", (req, res) => {
       );
     });
   });
+});
+
+//GET USER DATA
+router.get("/user", auth, (req, res) => {
+  User.findById(req.user.id).select("-password".then((user) => res.json(user)));
 });
 
 module.exports = router;
