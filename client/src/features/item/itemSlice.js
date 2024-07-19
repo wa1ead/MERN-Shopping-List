@@ -50,7 +50,7 @@ const itemSlice = createSlice({
     builder.addCase(addItem.fulfilled, (state, action) => {
       state.loading = false;
       const item = action.payload;
-      state.items.push(item);
+      state.items = state.items.push(item);
     });
 
     //DELETE ITEM
