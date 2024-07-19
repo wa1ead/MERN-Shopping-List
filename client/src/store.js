@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
 import itemReducer from "./features/item/itemSlice";
-import userReducer from "./features/error/errorSlice";
+import userReducer from "./features/user/userSlice";
 import errorReducer from "./features/error/errorSlice";
 
 const store = configureStore({
