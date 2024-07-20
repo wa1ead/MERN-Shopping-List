@@ -9,6 +9,15 @@ const initialState = {
 };
 
 export const loadUser = createAsyncThunk("user/loadUser", async (getState) => {
+  await axios
+    .get("/api/auth/user", tokenConfig(getState))
+    .then((response) => response.data)
+    .catch((err) => {
+      err.response.data;
+    });
+});
+
+export const tokenConfig = (getState) => {
   //GET TOKEN
   const token = getState().auth.token;
 
@@ -23,13 +32,9 @@ export const loadUser = createAsyncThunk("user/loadUser", async (getState) => {
   if (token) {
     config.headers["x-auth-token"] = token;
   }
-  await axios
-    .get("/api/auth/user", config)
-    .then((response) => response.data)
-    .catch((err) => {
-      err.response.data;
-    });
-});
+
+  return config;
+};
 
 const userSlice = createSlice({
   name: "user",
