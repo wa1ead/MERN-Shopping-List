@@ -8,7 +8,7 @@ const initialState = {
   isLoading: null,
 };
 
-const loadUser = createAsyncThunk("user/loadUser", async (getState) => {
+export const loadUser = createAsyncThunk("user/loadUser", async (getState) => {
   //GET TOKEN
   const token = getState().auth.token;
 

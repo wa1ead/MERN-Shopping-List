@@ -7,7 +7,7 @@ const initialState = {
 };
 
 //GET ERRORS
-const getErrors = createAsyncThunk(
+export const getErrors = createAsyncThunk(
   "error/getErrors",
   (msg, status, id = null) => {
     return { msg, status, id };
@@ -15,7 +15,7 @@ const getErrors = createAsyncThunk(
 );
 
 //CLEAR ERRORS
-const clearErrors = createAsyncThunk("error/clearErrors", () => {
+export const clearErrors = createAsyncThunk("error/clearErrors", () => {
   return;
 });
 
