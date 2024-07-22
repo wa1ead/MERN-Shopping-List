@@ -70,12 +70,14 @@ const userSlice = createSlice({
     builder.addCase(loadUser.pending, (state) => {
       state.isLoading = true;
     });
+
     builder.addCase(loadUser.fulfilled, (state, action) => {
       localStorage.setItem("token", action.payload.token);
       state.user = action.payload;
       state.isAuthenticated = true;
       state.isLoading = false;
     });
+
     builder.addCase(loadUser.rejected, (state) => {
       localStorage.removeItem("token");
       state.token = null;

@@ -20,20 +20,20 @@ export const clearErrors = createAction("error/clearErrors");
 const errorSlice = createSlice({
   name: "error",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
+  reducers: {
     // GET ERROR
-    builder.addCase(getErrors, (state, action) => {
+    getErrors: (state, action) => {
       state.msg = action.payload.msg;
       state.status = action.payload.status;
       state.id = action.payload.id;
-    });
+    },
+
     // CLEAR ERROR
-    builder.addCase(clearErrors, (state) => {
+    clearErrors: (state) => {
       state.msg = {};
       state.status = null;
       state.id = null;
-    });
+    },
   },
 });
 
