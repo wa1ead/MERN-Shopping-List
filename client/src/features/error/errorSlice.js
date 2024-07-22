@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
   msg: {},
@@ -6,35 +6,34 @@ const initialState = {
   id: null,
 };
 
-//GET ERRORS
-export const getErrors = createAsyncThunk(
+export const getErrors = createAction(
   "error/getErrors",
   (msg, status, id = null) => {
-    return { msg, status, id };
+    return {
+      payload: { msg, status, id },
+    };
   }
 );
 
-//CLEAR ERRORS
-export const clearErrors = createAsyncThunk("error/clearErrors", () => {
-  return;
-});
+export const clearErrors = createAction("error/clearErrors");
 
 const errorSlice = createSlice({
   name: "error",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
-    //GET ERROR
-    builder.addCase(getErrors.fulfilled, (state, action) => {
+    // GET ERROR
+    builder.addCase(getErrors, (state, action) => {
       state.msg = action.payload.msg;
       state.status = action.payload.status;
       state.id = action.payload.id;
-    }),
-      //CLEAR ERROR
-      builder.addCase(clearErrors.fulfilled, (state) => {
-        state.msg = {};
-        state.status = null;
-        state.id = null;
-      });
+    });
+    // CLEAR ERROR
+    builder.addCase(clearErrors, (state) => {
+      state.msg = {};
+      state.status = null;
+      state.id = null;
+    });
   },
 });
 

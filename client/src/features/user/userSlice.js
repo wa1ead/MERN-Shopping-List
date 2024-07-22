@@ -8,23 +8,27 @@ const initialState = {
   isLoading: null,
 };
 
-export const loadUser = createAsyncThunk("user/loadUser", async (getState) => {
-  await axios
-    .get("/api/auth/user", tokenConfig(getState))
-    .then((response) => response.data)
-    .catch((err) => {
-      err.response.data;
-    });
-});
+export const loadUser = createAsyncThunk(
+  "user/loadUser",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const config = tokenConfig(getState);
+      const response = await axios.get("/api/auth/user", config);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const tokenConfig = (getState) => {
   //GET TOKEN
-  const token = getState().auth.token;
+  const token = getState().user.token;
 
   //HEADERS
   const config = {
     headers: {
-      "Content-Type": "application",
+      "Content-Type": "application/json",
     },
   };
 
@@ -45,16 +49,16 @@ const userSlice = createSlice({
       state.isLoading = true;
     }),
       builder.addCase(loadUser.fulfilled, (state, action) => {
-        (state.user = action.payload),
-          (state.isAuthenticated = true),
-          (state.isLoading = false);
+        state.user = action.payload;
+        state.isAuthenticated = true;
+        state.isLoading = false;
       }),
       builder.addCase(loadUser.rejected, (state) => {
-        localStorage.removeItem("token"),
-          (state.token = null),
-          (state.user = null),
-          (state.isAuthenticated = false),
-          (state.isLoading = false);
+        localStorage.removeItem("token");
+        state.token = null;
+        state.user = null;
+        state.isAuthenticated = false;
+        state.isLoading = false;
       });
   },
 });
